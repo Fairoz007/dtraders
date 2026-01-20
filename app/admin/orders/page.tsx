@@ -5,6 +5,7 @@ import { createBrowserClient } from '@supabase/ssr'
 import { ChevronLeft, Clock, CheckCircle, AlertCircle } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import Footer from '@/components/Footer'
 
 interface Order {
   id: string
@@ -61,7 +62,7 @@ export default function OrdersPage() {
   const getStatusIcon = (status: Order['status']) => {
     switch (status) {
       case 'pending':
-        return <Clock className="w-4 h-4 text-yellow-500" />
+        return <Clock className="w-4 h-4 text-[#C9A24D]" />
       case 'confirmed':
         return <CheckCircle className="w-4 h-4 text-blue-500" />
       case 'completed':
@@ -74,7 +75,7 @@ export default function OrdersPage() {
   const getStatusBg = (status: Order['status']) => {
     switch (status) {
       case 'pending':
-        return 'bg-yellow-50 text-yellow-900'
+        return 'bg-[#E8DCC4]/30 text-[#C9A24D]'
       case 'confirmed':
         return 'bg-blue-50 text-blue-900'
       case 'completed':
@@ -85,57 +86,58 @@ export default function OrdersPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#F6F3EE] flex flex-col">
       {/* Header */}
-      <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center gap-4">
-          <Link href="/admin" className="text-gray-600 hover:text-gray-900">
+      <header className="bg-[#0F1115] shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex items-center gap-4">
+          <Link href="/admin" className="text-[#F6F3EE] hover:text-[#C9A24D] transition-colors">
             <ChevronLeft className="w-5 h-5" />
           </Link>
-          <h1 className="text-2xl font-bold text-gray-900">Orders & Bookings</h1>
+          <h1 className="text-3xl font-serif font-bold text-[#C9A24D]">Orders & Bookings</h1>
         </div>
       </header>
 
       {/* Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12">
         {loading ? (
-          <div className="text-center py-12">
-            <p className="text-gray-600">Loading orders...</p>
+          <div className="text-center py-24">
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-[#C9A24D] border-t-transparent mb-4"></div>
+            <p className="text-[#7A7A7A]">Loading orders...</p>
           </div>
         ) : orders.length === 0 ? (
-          <div className="bg-white rounded-lg shadow p-12 text-center">
-            <p className="text-gray-600 text-lg">No orders yet. When customers use WhatsApp checkout, they'll appear here.</p>
+          <div className="bg-white rounded-2xl shadow-lg p-16 text-center luxury-card">
+            <p className="text-[#7A7A7A] text-lg font-light">No orders yet. When customers use WhatsApp checkout, they'll appear here.</p>
           </div>
         ) : (
-          <div className="bg-white rounded-lg shadow overflow-hidden">
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden luxury-card">
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gray-100 border-b border-gray-200">
+                <thead className="bg-[#0F1115] border-b border-[#E8DCC4]">
                   <tr>
-                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Customer</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Contact</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Amount</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Status</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Date</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Actions</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-[#C9A24D]">Customer</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-[#C9A24D]">Contact</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-[#C9A24D]">Amount</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-[#C9A24D]">Status</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-[#C9A24D]">Date</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-[#C9A24D]">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200">
+                <tbody className="divide-y divide-[#E8DCC4]">
                   {orders.map(order => (
-                    <tr key={order.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 text-sm text-gray-900">{order.customer_name}</td>
-                      <td className="px-6 py-4 text-sm text-gray-600">
+                    <tr key={order.id} className="hover:bg-[#F6F3EE]/50 transition-colors">
+                      <td className="px-6 py-4 text-sm text-[#0F1115] font-medium">{order.customer_name}</td>
+                      <td className="px-6 py-4 text-sm text-[#7A7A7A]">
                         <div>{order.customer_email}</div>
                         <div>{order.customer_phone}</div>
                       </td>
-                      <td className="px-6 py-4 text-sm font-medium text-gray-900">${order.total_amount.toFixed(2)}</td>
+                      <td className="px-6 py-4 text-sm font-semibold text-[#C9A24D]">${order.total_amount.toFixed(2)}</td>
                       <td className="px-6 py-4">
-                        <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium ${getStatusBg(order.status)}`}>
+                        <span className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium ${getStatusBg(order.status)}`}>
                           {getStatusIcon(order.status)}
                           {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-600">
+                      <td className="px-6 py-4 text-sm text-[#7A7A7A]">
                         {new Date(order.created_at).toLocaleDateString()}
                       </td>
                       <td className="px-6 py-4">
@@ -143,33 +145,30 @@ export default function OrdersPage() {
                           {order.status !== 'completed' && order.status !== 'cancelled' && (
                             <>
                               {order.status === 'pending' && (
-                                <Button
-                                  size="sm"
+                                <button
                                   onClick={() => updateOrderStatus(order.id, 'confirmed')}
-                                  className="bg-blue-600 hover:bg-blue-700 text-white"
+                                  className="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm font-medium transition-colors"
                                 >
                                   Confirm
-                                </Button>
+                                </button>
                               )}
                               {order.status === 'confirmed' && (
-                                <Button
-                                  size="sm"
+                                <button
                                   onClick={() => updateOrderStatus(order.id, 'completed')}
-                                  className="bg-green-600 hover:bg-green-700 text-white"
+                                  className="px-3 py-2 bg-green-600 hover:bg-green-700 text-white rounded text-sm font-medium transition-colors"
                                 >
                                   Complete
-                                </Button>
+                                </button>
                               )}
                             </>
                           )}
                           {order.status !== 'cancelled' && (
-                            <Button
-                              size="sm"
+                            <button
                               onClick={() => updateOrderStatus(order.id, 'cancelled')}
-                              className="bg-red-600 hover:bg-red-700 text-white"
+                              className="px-3 py-2 bg-red-600 hover:bg-red-700 text-white rounded text-sm font-medium transition-colors"
                             >
                               Cancel
-                            </Button>
+                            </button>
                           )}
                         </div>
                       </td>
@@ -181,6 +180,9 @@ export default function OrdersPage() {
           </div>
         )}
       </main>
+
+      {/* Footer */}
+      <Footer />
     </div>
   )
 }

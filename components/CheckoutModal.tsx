@@ -3,7 +3,7 @@
 import React from "react"
 
 import { useState } from 'react'
-import { X, Loader } from 'lucide-react'
+import { X, Loader, MessageCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 interface CartItem {
@@ -67,7 +67,7 @@ export default function CheckoutModal({
         .map(item => `${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`)
         .join('\n')
 
-      const message = `Hi dtraders!\n\nOrder ID: ${orderId}\nCustomer: ${customerName}\nEmail: ${customerEmail}\nPhone: ${customerPhone}\n\nItems:\n${itemsList}\n\nSubtotal: $${subtotal.toFixed(2)}\nTax (10%): $${tax.toFixed(2)}\nTotal: $${total.toFixed(2)}\n\nPlease confirm availability and provide delivery options.`
+      const message = `Hi DTRADERS!\n\nOrder ID: ${orderId}\nCustomer: ${customerName}\nEmail: ${customerEmail}\nPhone: ${customerPhone}\n\nItems:\n${itemsList}\n\nSubtotal: $${subtotal.toFixed(2)}\nTax (10%): $${tax.toFixed(2)}\nTotal: $${total.toFixed(2)}\n\nPlease confirm availability and provide delivery options.`
 
       const encodedMessage = encodeURIComponent(message)
       
@@ -86,28 +86,30 @@ export default function CheckoutModal({
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 premium-fade luxury-card">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200">
-          <h2 className="text-xl font-bold text-gray-900">Checkout</h2>
+        <div className="flex items-center justify-between p-6 border-b border-[#E8DCC4]">
+          <h2 className="text-2xl font-serif font-bold text-[#0F1115]">Checkout</h2>
           <button
             onClick={onClose}
             disabled={loading}
-            className="text-gray-400 hover:text-gray-600 disabled:opacity-50"
+            className="text-[#7A7A7A] hover:text-[#C9A24D] disabled:opacity-50 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Content */}
-        <form onSubmit={handleCheckout} className="p-6 space-y-4">
+        <form onSubmit={handleCheckout} className="p-6 space-y-5">
           {error && (
-            <div className="bg-red-50 text-red-700 p-3 rounded-lg text-sm">{error}</div>
+            <div className="bg-red-50 border-l-4 border-red-400 text-red-700 p-4 rounded-lg text-sm">
+              {error}
+            </div>
           )}
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-semibold text-[#0F1115] mb-2">
               Full Name
             </label>
             <input
@@ -115,13 +117,13 @@ export default function CheckoutModal({
               required
               value={customerName}
               onChange={e => setCustomerName(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border border-[#E8DCC4] rounded-lg focus:outline-none focus:border-[#C9A24D] focus:ring-2 focus:ring-[#C9A24D]/20 transition-all gold-glow text-[#0F1115]"
               placeholder="John Doe"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-semibold text-[#0F1115] mb-2">
               Email
             </label>
             <input
@@ -129,13 +131,13 @@ export default function CheckoutModal({
               required
               value={customerEmail}
               onChange={e => setCustomerEmail(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border border-[#E8DCC4] rounded-lg focus:outline-none focus:border-[#C9A24D] focus:ring-2 focus:ring-[#C9A24D]/20 transition-all gold-glow text-[#0F1115]"
               placeholder="john@example.com"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-semibold text-[#0F1115] mb-2">
               Phone Number
             </label>
             <input
@@ -143,35 +145,40 @@ export default function CheckoutModal({
               required
               value={customerPhone}
               onChange={e => setCustomerPhone(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border border-[#E8DCC4] rounded-lg focus:outline-none focus:border-[#C9A24D] focus:ring-2 focus:ring-[#C9A24D]/20 transition-all gold-glow text-[#0F1115]"
               placeholder="+1 (555) 123-4567"
             />
           </div>
 
           {/* Order Summary */}
-          <div className="bg-gray-50 p-4 rounded-lg space-y-2 text-sm">
-            <div className="flex justify-between text-gray-600">
+          <div className="bg-[#F6F3EE] p-5 rounded-lg space-y-3 text-sm border border-[#E8DCC4]">
+            <div className="flex justify-between text-[#7A7A7A]">
               <span>Subtotal:</span>
               <span>${subtotal.toFixed(2)}</span>
             </div>
-            <div className="flex justify-between text-gray-600">
+            <div className="flex justify-between text-[#7A7A7A]">
               <span>Tax (10%):</span>
               <span>${tax.toFixed(2)}</span>
             </div>
-            <div className="flex justify-between font-bold text-gray-900 text-base border-t border-gray-200 pt-2">
+            <div className="flex justify-between font-bold text-[#C9A24D] text-base border-t border-[#E8DCC4] pt-3">
               <span>Total:</span>
               <span>${total.toFixed(2)}</span>
             </div>
           </div>
 
-          <Button
+          <button
             type="submit"
             disabled={loading}
-            className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg flex items-center justify-center gap-2 disabled:opacity-50"
+            className="luxury-btn w-full flex items-center justify-center gap-2 disabled:opacity-50"
           >
             {loading && <Loader className="w-4 h-4 animate-spin" />}
-            {loading ? 'Processing...' : 'Continue to WhatsApp'}
-          </Button>
+            {loading ? 'Processing...' : (
+              <>
+                <MessageCircle className="w-5 h-5" />
+                Continue to WhatsApp
+              </>
+            )}
+          </button>
         </form>
       </div>
     </div>

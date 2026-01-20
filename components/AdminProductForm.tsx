@@ -12,6 +12,11 @@ interface AdminProductFormProps {
   onCancel: () => void
 }
 
+interface Category {
+  id: string
+  name: string
+}
+
 export default function AdminProductForm({
   product,
   onSave,
@@ -21,12 +26,36 @@ export default function AdminProductForm({
     name: '',
     description: '',
     price: '',
-    category_id: '1',
+    category_id: '',
     image_url: '',
     in_stock: true,
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [categories, setCategories] = useState<Category[]>([])
+  const [loadingCategories, setLoadingCategories] = useState(true)
+
+  // Fetch categories on mount
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch('/api/categories')
+        const data = await response.json()
+        if (Array.isArray(data)) {
+          setCategories(data)
+          // Set first category as default if available
+          if (data.length > 0 && !formData.category_id) {
+            setFormData(prev => ({ ...prev, category_id: data[0].id }))
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching categories:', error)
+      } finally {
+        setLoadingCategories(false)
+      }
+    }
+    fetchCategories()
+  }, [])
 
   useEffect(() => {
     if (product) {
@@ -34,9 +63,9 @@ export default function AdminProductForm({
         name: product.name,
         description: product.description,
         price: product.price.toString(),
-        category_id: product.category_id,
+        category_id: product.category_id || '',
         image_url: product.image_url || '',
-        in_stock: product.in_stock,
+        in_stock: product.stock_quantity > 0,
       })
     }
   }, [product])
@@ -62,7 +91,7 @@ export default function AdminProductForm({
         ...formData,
         price: parseFloat(formData.price),
       }
-      onSave(submitData)
+      await onSave(submitData)
     } finally {
       setIsSubmitting(false)
     }
@@ -123,13 +152,15 @@ export default function AdminProductForm({
             name="category_id"
             value={formData.category_id}
             onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-900"
+            disabled={loadingCategories}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-900 disabled:bg-gray-100"
           >
-            <option value="1">Sofas</option>
-            <option value="2">Chairs</option>
-            <option value="3">Tables</option>
-            <option value="4">Beds</option>
-            <option value="5">Storage</option>
+            <option value="">Select a category</option>
+            {categories.map((cat) => (
+              <option key={cat.id} value={cat.id}>
+                {cat.name}
+              </option>
+            ))}
           </select>
         </div>
       </div>

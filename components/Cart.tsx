@@ -37,8 +37,8 @@ export default function Cart({ items, onRemove, onCheckout }: CartProps) {
   if (items.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-full text-center">
-        <p className="text-gray-600 mb-4">Your cart is empty</p>
-        <Link href="/" className="text-blue-600 hover:text-blue-800">
+        <p className="text-[#7A7A7A] mb-4">Your cart is empty</p>
+        <Link href="/" className="text-[#C9A24D] hover:text-[#B8942A] font-medium">
           Continue shopping
         </Link>
       </div>
@@ -47,29 +47,29 @@ export default function Cart({ items, onRemove, onCheckout }: CartProps) {
 
   return (
     <div className="flex flex-col h-full">
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">Shopping Cart</h2>
+      <h2 className="text-2xl font-serif font-bold text-[#0F1115] mb-6">Shopping Cart</h2>
 
       {/* Items List */}
       <div className="flex-1 overflow-y-auto mb-6 space-y-4">
         {items.map(item => (
-          <div key={item.id} className="flex gap-3 bg-white p-3 rounded-lg">
+          <div key={item.id} className="flex gap-4 bg-[#F6F3EE] p-4 rounded-lg border border-[#E8DCC4] hover:border-[#C9A24D] transition-colors">
             <img
               src={item.image_url || '/placeholder.jpg'}
               alt={item.name}
-              className="w-16 h-16 object-cover rounded"
+              className="w-20 h-20 object-cover rounded-lg"
             />
             <div className="flex-1">
-              <h3 className="font-semibold text-gray-900 text-sm">{item.name}</h3>
-              <p className="text-gray-600 text-xs mt-1">
+              <h3 className="font-semibold text-[#0F1115] text-sm">{item.name}</h3>
+              <p className="text-[#7A7A7A] text-xs mt-1">
                 ${item.price.toFixed(2)} x {item.quantity}
               </p>
-              <p className="text-gray-900 font-semibold text-sm mt-1">
+              <p className="text-[#C9A24D] font-semibold text-sm mt-2">
                 ${(item.price * item.quantity).toFixed(2)}
               </p>
             </div>
             <button
               onClick={() => onRemove(item.id)}
-              className="p-2 text-gray-400 hover:text-red-600 transition-colors"
+              className="p-2 text-[#7A7A7A] hover:text-red-600 transition-colors"
             >
               <Trash2 className="w-4 h-4" />
             </button>
@@ -78,29 +78,29 @@ export default function Cart({ items, onRemove, onCheckout }: CartProps) {
       </div>
 
       {/* Summary */}
-      <div className="border-t border-gray-200 pt-4 space-y-2 mb-6">
-        <div className="flex justify-between text-gray-600">
+      <div className="border-t border-[#E8DCC4] pt-4 space-y-3 mb-6 bg-[#F6F3EE] p-4 rounded-lg">
+        <div className="flex justify-between text-[#7A7A7A] text-sm">
           <span>Subtotal:</span>
           <span>${subtotal.toFixed(2)}</span>
         </div>
-        <div className="flex justify-between text-gray-600">
+        <div className="flex justify-between text-[#7A7A7A] text-sm">
           <span>Tax (10%):</span>
           <span>${tax.toFixed(2)}</span>
         </div>
-        <div className="flex justify-between text-lg font-bold text-gray-900">
+        <div className="flex justify-between text-lg font-bold text-[#C9A24D] pt-2 border-t border-[#E8DCC4]">
           <span>Total:</span>
           <span>${total.toFixed(2)}</span>
         </div>
       </div>
 
       {/* Checkout Button */}
-      <Button
+      <button
         onClick={handleCheckout}
-        className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg flex items-center justify-center gap-2"
+        className="luxury-btn w-full flex items-center justify-center gap-2"
       >
         <MessageCircle className="w-5 h-5" />
         Proceed to Checkout
-      </Button>
+      </button>
     </div>
   )
 }

@@ -1,15 +1,21 @@
 import React from "react"
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Playfair_Display, Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const playfair = Playfair_Display({ 
+  subsets: ["latin"],
+  variable: '--font-serif',
+});
+const inter = Inter({ 
+  subsets: ["latin"],
+  variable: '--font-sans',
+});
 
 export const metadata: Metadata = {
-  title: 'dtraders - Premium Furniture Marketplace',
-  description: 'Discover luxury furniture and home decor. Premium collections, expert curation, and seamless shopping experience.',
+  title: 'DTRADERS - Luxury Furniture Marketplace',
+  description: 'Curated luxury furniture and home decor. Premium collections for the discerning home. Timeless elegance meets modern comfort.',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -36,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
       <body className={`font-sans antialiased`}>
         {children}
         <Analytics />

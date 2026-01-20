@@ -7,6 +7,7 @@ import { Plus, Edit, Trash2, LogOut, Settings, ShoppingBag } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import AdminProductForm from '@/components/AdminProductForm'
 import AdminProductList from '@/components/AdminProductList'
+import Footer from '@/components/Footer'
 
 export default function AdminDashboard() {
   const [products, setProducts] = useState<any[]>([])
@@ -48,23 +49,35 @@ export default function AdminDashboard() {
 
   const handleSaveProduct = async (productData: any) => {
     try {
-      if (editingProduct) {
-        const { error } = await supabase
-          .from('products')
-          .update(productData)
-          .eq('id', editingProduct.id)
-        if (error) throw error
-      } else {
-        const { error } = await supabase
-          .from('products')
-          .insert([productData])
-        if (error) throw error
+      const endpoint = '/api/products'
+      const method = editingProduct ? 'PUT' : 'POST'
+      const payload = editingProduct 
+        ? { ...productData, id: editingProduct.id }
+        : productData
+
+      console.log(`Sending ${method} request to ${endpoint}`, payload)
+
+      const response = await fetch(endpoint, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      }).catch(err => {
+        console.error('Fetch error details:', err)
+        throw new Error(`Network error: ${err.message}. Please check if the server is running and the API route exists.`)
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || `Failed to ${editingProduct ? 'update' : 'create'} product`)
       }
-      fetchProducts()
+
+      await fetchProducts()
       setShowForm(false)
       setEditingProduct(null)
     } catch (error) {
       console.error('Error saving product:', error)
+      alert(`Error saving product: ${error instanceof Error ? error.message : 'Unknown error'}`)
     }
   }
 
@@ -90,36 +103,36 @@ export default function AdminDashboard() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+      <div className="flex justify-center items-center h-screen bg-[#F6F3EE]">
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-[#C9A24D] border-t-transparent"></div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-[#F6F3EE] flex flex-col">
       {/* Header */}
-      <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-900">dtraders Admin</h1>
-          <div className="flex items-center gap-4">
+      <header className="bg-[#0F1115] shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex items-center justify-between">
+          <h1 className="text-3xl font-serif font-bold text-[#C9A24D]">DTRADERS Admin</h1>
+          <div className="flex items-center gap-6">
             <Link
               href="/admin/orders"
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
+              className="flex items-center gap-2 text-[#F6F3EE] hover:text-[#C9A24D] transition-colors font-medium"
             >
               <ShoppingBag className="w-5 h-5" />
               Orders
             </Link>
             <Link
               href="/admin/settings"
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
+              className="flex items-center gap-2 text-[#F6F3EE] hover:text-[#C9A24D] transition-colors font-medium"
             >
               <Settings className="w-5 h-5" />
               Settings
             </Link>
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
+              className="flex items-center gap-2 text-[#F6F3EE] hover:text-[#C9A24D] transition-colors font-medium"
             >
               <LogOut className="w-5 h-5" />
               Logout
@@ -128,26 +141,26 @@ export default function AdminDashboard() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12">
         {/* Controls */}
-        <div className="mb-8 flex items-center justify-between">
-          <h2 className="text-3xl font-bold text-gray-900">Products</h2>
-          <Button
+        <div className="mb-12 flex items-center justify-between">
+          <h2 className="text-4xl font-serif font-bold text-[#0F1115]">Products</h2>
+          <button
             onClick={() => {
               setEditingProduct(null)
               setShowForm(true)
             }}
-            className="bg-gray-900 hover:bg-gray-800 text-white flex items-center gap-2"
+            className="luxury-btn flex items-center gap-2"
           >
             <Plus className="w-5 h-5" />
             Add Product
-          </Button>
+          </button>
         </div>
 
         {/* Form */}
         {showForm && (
-          <div className="mb-8 bg-white rounded-lg shadow p-6">
-            <h3 className="text-xl font-semibold text-gray-900 mb-4">
+          <div className="mb-12 bg-white rounded-2xl shadow-lg p-8 premium-fade luxury-card">
+            <h3 className="text-2xl font-serif font-semibold text-[#0F1115] mb-6">
               {editingProduct ? 'Edit Product' : 'Add New Product'}
             </h3>
             <AdminProductForm
@@ -162,10 +175,10 @@ export default function AdminDashboard() {
         )}
 
         {/* Products Table */}
-        <div className="bg-white rounded-lg shadow overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-lg overflow-hidden luxury-card">
           {products.length === 0 ? (
-            <div className="p-6 text-center text-gray-600">
-              No products yet. Add your first product!
+            <div className="p-12 text-center text-[#7A7A7A]">
+              <p className="text-lg font-light">No products yet. Add your first exquisite piece!</p>
             </div>
           ) : (
             <AdminProductList
@@ -179,6 +192,9 @@ export default function AdminDashboard() {
           )}
         </div>
       </main>
+
+      {/* Footer */}
+      <Footer />
     </div>
   )
 }

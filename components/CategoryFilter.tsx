@@ -12,25 +12,25 @@ export default function CategoryFilter({
   onCategoryChange,
 }: CategoryFilterProps) {
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-wrap gap-3">
       <button
         onClick={() => onCategoryChange('')}
-        className={`px-4 py-2 rounded-full font-medium transition-colors ${
+        className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
           selectedCategory === ''
-            ? 'bg-gray-900 text-white'
-            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+            ? 'bg-[#0F1115] text-[#C9A24D] border-2 border-[#C9A24D]'
+            : 'bg-white border-2 border-[#E8DCC4] text-[#0F1115] hover:border-[#C9A24D] hover:text-[#C9A24D]'
         }`}
       >
-        All Products
+        All Collections
       </button>
       {categories.map(category => (
         <button
           key={category}
           onClick={() => onCategoryChange(category)}
-          className={`px-4 py-2 rounded-full font-medium transition-colors ${
+          className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
             selectedCategory === category
-              ? 'bg-gray-900 text-white'
-              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              ? 'bg-[#0F1115] text-[#C9A24D] border-2 border-[#C9A24D]'
+              : 'bg-white border-2 border-[#E8DCC4] text-[#0F1115] hover:border-[#C9A24D] hover:text-[#C9A24D]'
           }`}
         >
           {category.charAt(0).toUpperCase() + category.slice(1)}
