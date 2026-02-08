@@ -6,7 +6,7 @@ import { categories } from '@/data/products';
 import { Link } from 'react-router-dom';
 
 gsap.registerPlugin(ScrollTrigger);
-
+//teat
 export function Categories() {
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
