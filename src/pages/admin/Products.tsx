@@ -215,9 +215,12 @@ function ProductModal({ onClose, product }: any) {
                 category: formData.get("category") as string,
                 featured: formData.get("featured") === "on",
                 active: formData.get("active") === "on",
-                finishes: (formData.get("finishes") as string).split(",").map(f => f.trim()).filter(Boolean),
-                imageStorageId,
+                finishes: (formData.get("finishes") as string || "").split(",").map(f => f.trim()).filter(Boolean),
             };
+
+            if (imageStorageId) {
+                productData.imageStorageId = imageStorageId;
+            }
 
             if (product) {
                 productData.code = product.code; // preserve code on update
@@ -231,9 +234,10 @@ function ProductModal({ onClose, product }: any) {
                 toast.success("Product created successfully");
             }
             onClose();
-        } catch (error) {
+        } catch (error: any) {
             console.error(error);
-            toast.error("An error occurred");
+            const errorMessage = error.data?.message || error.message || "An error occurred";
+            toast.error(errorMessage);
         } finally {
             setIsSubmitting(false);
         }
