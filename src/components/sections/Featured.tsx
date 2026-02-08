@@ -1,8 +1,10 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRight } from 'lucide-react';
+import { ShoppingBag } from 'lucide-react';
 import { products } from '@/data/products';
+import { useCart } from '@/context/CartContext';
+import { toast } from 'sonner';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -10,6 +12,7 @@ export function Featured() {
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
+  const { addToCart } = useCart();
   const featuredProduct = products.find(p => p.id === '1');
 
   useEffect(() => {
@@ -40,10 +43,10 @@ export function Featured() {
     return () => ctx.revert();
   }, []);
 
-  const handleRequestQuote = () => {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
+  const handleAddToCart = () => {
+    if (featuredProduct) {
+      addToCart({ ...featuredProduct, _id: featuredProduct.id, imageUrl: featuredProduct.image });
+      toast.success(`${featuredProduct.name} added to cart!`);
     }
   };
 
@@ -51,21 +54,21 @@ export function Featured() {
     <section
       ref={sectionRef}
       id="featured"
-      className="relative w-full py-20 lg:py-32 bg-dark"
+      className="relative w-full py-20 lg:py-32 bg-background"
     >
       <div className="px-6 lg:px-[6vw]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* Content */}
           <div ref={contentRef} className="order-2 lg:order-1">
-            <span className="font-mono text-xs uppercase tracking-[0.12em] text-cream/70 mb-4 block">
+            <span className="font-mono text-xs uppercase tracking-[0.12em] text-foreground/70 mb-4 block">
               Featured
             </span>
 
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-section text-cream mb-6">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-section text-foreground mb-6">
               The Signature Sofa
             </h2>
 
-            <p className="text-base lg:text-lg text-cream/80 mb-4 leading-relaxed">
+            <p className="text-base lg:text-lg text-foreground/80 mb-4 leading-relaxed">
               {featuredProduct?.description}
             </p>
 
@@ -75,13 +78,13 @@ export function Featured() {
 
             <div className="flex flex-col sm:flex-row gap-4 items-start">
               <button
-                onClick={handleRequestQuote}
+                onClick={handleAddToCart}
                 className="btn-primary flex items-center gap-2 group"
               >
-                Request Quote
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ShoppingBag className="w-4 h-4" />
+                Add to Cart
               </button>
-              <button className="text-cream/80 hover:text-gold transition-colors text-sm tracking-wide underline underline-offset-4">
+              <button className="text-foreground/80 hover:text-gold transition-colors text-sm tracking-wide underline underline-offset-4">
                 View details
               </button>
             </div>
@@ -96,7 +99,7 @@ export function Featured() {
                 className="w-full h-full object-cover"
               />
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-dark/80 to-transparent">
-                <p className="text-cream/90 text-sm">
+                <p className="text-foreground/90 text-sm">
                   Available in {featuredProduct?.finishes?.length || 4} finishes
                 </p>
               </div>

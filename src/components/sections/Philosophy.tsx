@@ -77,7 +77,7 @@ export function Philosophy() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-20 lg:py-32 bg-cream"
+      className="relative w-full py-20 lg:py-32 bg-background"
     >
       <div className="px-6 lg:px-[6vw]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">

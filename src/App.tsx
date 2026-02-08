@@ -2,19 +2,14 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { Toaster } from 'sonner';
 import { Navbar } from '@/components/navigation/Navbar';
 import { Hero } from '@/components/sections/Hero';
-import { Featured } from '@/components/sections/Featured';
-import { Categories } from '@/components/sections/Categories';
-import { Philosophy } from '@/components/sections/Philosophy';
-import { ProductSpotlight } from '@/components/sections/ProductSpotlight';
-import { Craft } from '@/components/sections/Craft';
-import { Mattress } from '@/components/sections/Mattress';
-import { Showroom } from '@/components/sections/Showroom';
-import { Delivery } from '@/components/sections/Delivery';
 import { Contact } from '@/components/sections/Contact';
+import { FeaturedProducts } from '@/components/sections/FeaturedProducts';
 import { Products } from '@/pages/Products';
 import { Showrooms } from '@/pages/Showrooms';
-import { Admin } from '@/pages/Admin';
-import { products } from '@/data/products';
+import { AdminLayout } from '@/components/admin/AdminLayout';
+import { AdminDashboard } from '@/pages/admin/Dashboard';
+import { AdminProducts } from '@/pages/admin/Products';
+import { CartProvider } from '@/context/CartContext';
 import './App.css';
 
 // Scroll to top on route change
@@ -31,38 +26,10 @@ function ScrollToTop() {
 
 // Home page with all sections
 function Home() {
-  const sofaProduct = products.find(p => p.id === '2');
-  const bedProduct = products.find(p => p.id === '3');
-  const chairProduct = products.find(p => p.id === '4');
-
   return (
     <main className="relative">
       <Hero />
-      <Featured />
-      <Categories />
-      <Philosophy />
-      {sofaProduct && (
-        <ProductSpotlight
-          product={sofaProduct}
-          cardImage="/spotlight_sofa_card.jpg"
-        />
-      )}
-      {bedProduct && (
-        <ProductSpotlight
-          product={bedProduct}
-          cardImage="/spotlight_bed_card.jpg"
-        />
-      )}
-      {chairProduct && (
-        <ProductSpotlight
-          product={chairProduct}
-          cardImage="/spotlight_chair_card.jpg"
-        />
-      )}
-      <Craft />
-      <Mattress />
-      <Showroom />
-      <Delivery />
+      <FeaturedProducts />
       <Contact />
     </main>
   );
@@ -81,51 +48,68 @@ function Layout({ children }: { children: React.ReactNode }) {
 function App() {
   return (
     <Router>
-      <ScrollToTop />
-      <div className="relative">
-        {/* Grain overlay */}
-        <div className="grain-overlay" />
+      <CartProvider>
+        <ScrollToTop />
+        <div className="relative">
+          {/* Grain overlay */}
+          <div className="grain-overlay" />
 
-        {/* Toast notifications */}
-        <Toaster
-          position="top-right"
-          toastOptions={{
-            style: {
-              background: '#141416',
-              color: '#F4F2EE',
-              border: '1px solid rgba(244, 242, 238, 0.1)',
-            },
-          }}
-        />
+          {/* Toast notifications */}
+          <Toaster
+            position="top-right"
+            toastOptions={{
+              style: {
+                background: '#ffffff',
+                color: '#0B0B0D',
+                border: '1px solid #e5e7eb',
+              },
+            }}
+          />
 
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Layout>
-                <Home />
-              </Layout>
-            }
-          />
-          <Route
-            path="/products"
-            element={
-              <Layout>
-                <Products />
-              </Layout>
-            }
-          />
-          <Route
-            path="/showrooms"
-            element={
-              <Layout>
-                <Showrooms />
-              </Layout>
-            }
-          />
-          <Route path="/admin" element={<Admin />} />
-        </Routes>
-      </div>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Layout>
+                  <Home />
+                </Layout>
+              }
+            />
+            <Route
+              path="/products"
+              element={
+                <Layout>
+                  <Products />
+                </Layout>
+              }
+            />
+            <Route
+              path="/showrooms"
+              element={
+                <Layout>
+                  <Showrooms />
+                </Layout>
+              }
+            />
+            <Route
+              path="/admin"
+              element={
+                <AdminLayout>
+                  <AdminDashboard />
+                </AdminLayout>
+              }
+            />
+            <Route
+              path="/admin/products"
+              element={
+                <AdminLayout>
+                  <AdminProducts />
+                </AdminLayout>
+              }
+            />
+          </Routes>
+        </div>
+      </CartProvider>
     </Router>
   );
 }

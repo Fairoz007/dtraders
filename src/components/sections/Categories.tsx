@@ -63,17 +63,17 @@ export function Categories() {
     <section
       ref={sectionRef}
       id="categories"
-      className="relative w-full py-20 lg:py-32 bg-dark"
+      className="relative w-full py-20 lg:py-32 bg-background"
     >
       <div className="px-6 lg:px-[6vw]">
         {/* Header */}
         <div ref={contentRef} className="mb-12">
-          <span className="font-mono text-xs uppercase tracking-[0.12em] text-cream/70 mb-4 block">
+          <span className="font-mono text-xs uppercase tracking-[0.12em] text-foreground/70 mb-4 block">
             Categories
           </span>
 
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-section text-cream">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-section text-foreground">
               Shop by Category
             </h2>
 
@@ -103,10 +103,10 @@ export function Categories() {
                 alt={category.name}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-dark/40 group-hover:bg-dark/20 transition-colors" />
+              <div className="absolute inset-0 bg-background/40 group-hover:bg-background/20 transition-colors" />
               <div className="absolute bottom-4 left-4">
-                <span className="font-serif text-lg text-cream">{category.name}</span>
-                <span className="block text-cream/60 text-xs">{category.count} items</span>
+                <span className="font-serif text-lg text-foreground">{category.name}</span>
+                <span className="block text-foreground/60 text-xs">{category.count} items</span>
               </div>
             </Link>
           ))}

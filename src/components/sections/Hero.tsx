@@ -43,7 +43,7 @@ export function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full min-h-screen overflow-hidden bg-dark"
+      className="relative w-full min-h-screen overflow-hidden bg-background"
     >
       {/* Background Image */}
       <div className="absolute inset-0 w-full h-full">
@@ -52,7 +52,7 @@ export function Hero() {
           alt="Premium furniture living room"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-dark/50" />
+        <div className="absolute inset-0 bg-black/40" />
       </div>
 
       {/* Content */}
@@ -60,15 +60,15 @@ export function Hero() {
         ref={contentRef}
         className="relative z-10 min-h-screen flex flex-col justify-center px-6 lg:px-[6vw] pt-24 pb-12"
       >
-        <span className="font-mono text-xs uppercase tracking-[0.12em] text-cream/70 mb-4">
+        <span className="font-mono text-xs uppercase tracking-[0.12em] text-[#F4F2EE]/70 mb-4">
           Premium Furniture
         </span>
 
-        <h1 className="font-serif text-4xl sm:text-5xl lg:text-hero text-cream max-w-2xl leading-[0.95] mb-6">
+        <h1 className="font-serif text-4xl sm:text-5xl lg:text-hero text-[#F4F2EE] max-w-2xl leading-[0.95] mb-6">
           Curated Living
         </h1>
 
-        <p className="text-base lg:text-lg text-cream/80 max-w-md mb-8 leading-relaxed">
+        <p className="text-base lg:text-lg text-[#F4F2EE]/80 max-w-md mb-8 leading-relaxed">
           Timeless design, modern comfort—delivered across India.
         </p>
 
@@ -82,7 +82,7 @@ export function Hero() {
           </button>
           <button
             onClick={() => scrollToSection('showroom')}
-            className="text-cream/80 hover:text-gold transition-colors text-sm tracking-wide underline underline-offset-4"
+            className="text-[#F4F2EE]/80 hover:text-gold transition-colors text-sm tracking-wide underline underline-offset-4"
           >
             Book a showroom visit
           </button>

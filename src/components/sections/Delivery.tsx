@@ -46,27 +46,27 @@ export function Delivery() {
     <section
       ref={sectionRef}
       id="delivery"
-      className="relative w-full py-20 lg:py-32 bg-dark"
+      className="relative w-full py-20 lg:py-32 bg-background"
     >
       <div className="px-6 lg:px-[6vw]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* Content */}
           <div ref={contentRef}>
-            <span className="font-mono text-xs uppercase tracking-[0.12em] text-cream/70 mb-4 block">
+            <span className="font-mono text-xs uppercase tracking-[0.12em] text-foreground/70 mb-4 block">
               Delivery
             </span>
 
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-section text-cream mb-6">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-section text-foreground mb-6">
               We deliver
             </h2>
 
-            <p className="text-base lg:text-lg text-cream/80 mb-6 leading-relaxed">
+            <p className="text-base lg:text-lg text-foreground/80 mb-6 leading-relaxed">
               Across India. White-glove service. Assembly included. We handle everything so you can focus on enjoying your new furniture.
             </p>
 
             <div className="flex flex-col gap-3 mb-8">
               {deliveryFeatures.map((feature) => (
-                <div key={feature.text} className="flex items-center gap-3 text-cream/70">
+                <div key={feature.text} className="flex items-center gap-3 text-foreground/70">
                   <feature.icon className="w-4 h-4 text-gold" />
                   <span className="text-sm">{feature.text}</span>
                 </div>

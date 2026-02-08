@@ -47,7 +47,7 @@ export function Showroom() {
     <section
       ref={sectionRef}
       id="showroom"
-      className="relative w-full py-20 lg:py-32 bg-dark"
+      className="relative w-full py-20 lg:py-32 bg-background"
     >
       <div className="px-6 lg:px-[6vw]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -62,19 +62,19 @@ export function Showroom() {
 
           {/* Content */}
           <div ref={contentRef} className="order-2">
-            <span className="font-mono text-xs uppercase tracking-[0.12em] text-cream/70 mb-4 block">
+            <span className="font-mono text-xs uppercase tracking-[0.12em] text-foreground/70 mb-4 block">
               Showroom
             </span>
 
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-section text-cream mb-6">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-section text-foreground mb-6">
               Experience it in person
             </h2>
 
-            <p className="text-base lg:text-lg text-cream/80 mb-6 leading-relaxed">
+            <p className="text-base lg:text-lg text-foreground/80 mb-6 leading-relaxed">
               Sit, lie down, and feel the materials. Our team can help you configure the right piece for your space.
             </p>
 
-            <div className="flex items-center gap-2 text-cream/60 mb-8">
+            <div className="flex items-center gap-2 text-foreground/60 mb-8">
               <MapPin className="w-4 h-4" />
               <span className="text-sm">Bangalore • Mumbai • Delhi</span>
             </div>

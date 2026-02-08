@@ -4,6 +4,7 @@ export const products: Product[] = [
   {
     id: '1',
     name: 'The Signature Sofa',
+    code: 'SF-001',
     category: 'sofas',
     price: 42000,
     description: 'A deep-seat silhouette in performance linen, built for everyday luxury.',
@@ -14,6 +15,7 @@ export const products: Product[] = [
   {
     id: '2',
     name: 'Modern Comfort Sofa',
+    code: 'SF-002',
     category: 'sofas',
     price: 38500,
     description: 'Deep cushions, crisp upholstery, and a frame engineered for daily comfort.',
@@ -24,6 +26,7 @@ export const products: Product[] = [
   {
     id: '3',
     name: 'Designer Platform Bed',
+    code: 'BD-001',
     category: 'beds',
     price: 55000,
     description: 'A quiet statement in the bedroom—solid wood, soft upholstery, and refined proportions.',
@@ -34,6 +37,7 @@ export const products: Product[] = [
   {
     id: '4',
     name: 'Accent Lounge Chair',
+    code: 'CH-001',
     category: 'chairs',
     price: 18000,
     description: 'Sculptural support for reading, working, or simply pausing.',
@@ -44,6 +48,7 @@ export const products: Product[] = [
   {
     id: '5',
     name: 'Premium Sleep Mattress',
+    code: 'MT-001',
     category: 'mattresses',
     price: 22000,
     description: 'Supportive layers, breathable covers, and sizes for every room.',
@@ -54,6 +59,7 @@ export const products: Product[] = [
   {
     id: '6',
     name: 'Modular Sectional',
+    code: 'SX-001',
     category: 'sectionals',
     price: 68000,
     description: 'Configurable comfort for modern living spaces.',
@@ -64,6 +70,7 @@ export const products: Product[] = [
   {
     id: '7',
     name: 'Oak Dining Table',
+    code: 'TB-001',
     category: 'tables',
     price: 35000,
     description: 'Solid oak craftsmanship for memorable gatherings.',
@@ -74,6 +81,7 @@ export const products: Product[] = [
   {
     id: '8',
     name: 'Upholstered Bed Frame',
+    code: 'BD-002',
     category: 'beds',
     price: 48000,
     description: 'Soft, padded elegance for restful nights.',
@@ -84,6 +92,7 @@ export const products: Product[] = [
   {
     id: '9',
     name: 'Dining Chair Set',
+    code: 'CH-002',
     category: 'chairs',
     price: 24000,
     description: 'Elegant seating for your dining experience.',
@@ -94,6 +103,7 @@ export const products: Product[] = [
   {
     id: '10',
     name: 'Cloud Sectional',
+    code: 'SX-002',
     category: 'sectionals',
     price: 75000,
     description: 'Sink-in comfort with modular flexibility.',

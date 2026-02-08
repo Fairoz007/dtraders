@@ -49,21 +49,21 @@ export function Mattress() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-20 lg:py-32 bg-dark"
+      className="relative w-full py-20 lg:py-32 bg-background"
     >
       <div className="px-6 lg:px-[6vw]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* Content */}
           <div ref={contentRef}>
-            <span className="font-mono text-xs uppercase tracking-[0.12em] text-cream/70 mb-4 block">
+            <span className="font-mono text-xs uppercase tracking-[0.12em] text-foreground/70 mb-4 block">
               Mattress Collection
             </span>
 
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-section text-cream mb-6">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-section text-foreground mb-6">
               Sleep better
             </h2>
 
-            <p className="text-base lg:text-lg text-cream/80 mb-6 leading-relaxed">
+            <p className="text-base lg:text-lg text-foreground/80 mb-6 leading-relaxed">
               Supportive layers, breathable covers, and sizes for every room. Wake up refreshed with our premium mattress collection.
             </p>
 

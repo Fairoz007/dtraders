@@ -40,7 +40,7 @@ export function Craft() {
     <section
       ref={sectionRef}
       id="craft"
-      className="relative w-full py-20 lg:py-32 bg-dark"
+      className="relative w-full py-20 lg:py-32 bg-background"
     >
       <div className="px-6 lg:px-[6vw]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -55,15 +55,15 @@ export function Craft() {
 
           {/* Content */}
           <div ref={contentRef} className="order-2">
-            <span className="font-mono text-xs uppercase tracking-[0.12em] text-cream/70 mb-4 block">
+            <span className="font-mono text-xs uppercase tracking-[0.12em] text-foreground/70 mb-4 block">
               Craft
             </span>
 
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-section text-cream mb-6">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-section text-foreground mb-6">
               Built to last
             </h2>
 
-            <p className="text-base lg:text-lg text-cream/80 mb-8 leading-relaxed">
+            <p className="text-base lg:text-lg text-foreground/80 mb-8 leading-relaxed">
               Kiln-dried hardwood frames, high-resilience foam, and fabrics tested for real life. Every piece is built to withstand years of daily use while maintaining its beauty.
             </p>
 

@@ -109,13 +109,13 @@ export function Showrooms() {
   };
 
   return (
-    <div className="min-h-screen bg-dark pt-20 pb-16">
+    <div className="min-h-screen bg-background pt-20 pb-16">
       {/* Header */}
       <div className="px-4 sm:px-6 lg:px-[6vw] mb-10">
         <div className="flex items-center gap-4 mb-6">
           <Link
             to="/"
-            className="flex items-center gap-2 text-cream/60 hover:text-gold transition-colors"
+            className="flex items-center gap-2 text-foreground/60 hover:text-gold transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             <span className="text-sm">Back to home</span>
@@ -123,10 +123,10 @@ export function Showrooms() {
         </div>
 
         <div ref={headerRef}>
-          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-cream mb-4">
+          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-foreground mb-4">
             Our Showrooms
           </h1>
-          <p className="text-cream/70 max-w-2xl leading-relaxed">
+          <p className="text-foreground/70 max-w-2xl leading-relaxed">
             Visit one of our elegant showrooms to experience our premium furniture collections in person. 
             Our knowledgeable staff will be happy to assist you in finding the perfect pieces for your home.
           </p>
@@ -141,24 +141,24 @@ export function Showrooms() {
               key={showroom.id}
               className="showroom-card bg-white/5 rounded-[10px] p-6 hover:bg-white/10 transition-colors"
             >
-              <h2 className="font-serif text-xl text-cream mb-4">{showroom.name}</h2>
+              <h2 className="font-serif text-xl text-foreground mb-4">{showroom.name}</h2>
               
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
                   <MapPin className="w-4 h-4 text-gold mt-1 flex-shrink-0" />
                   <div>
-                    <span className="text-cream/40 text-xs uppercase tracking-wide block mb-1">Address</span>
-                    <p className="text-cream/80 text-sm">{showroom.address}</p>
+                    <span className="text-foreground/40 text-xs uppercase tracking-wide block mb-1">Address</span>
+                    <p className="text-foreground/80 text-sm">{showroom.address}</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
                   <Phone className="w-4 h-4 text-gold mt-1 flex-shrink-0" />
                   <div>
-                    <span className="text-cream/40 text-xs uppercase tracking-wide block mb-1">Phone</span>
+                    <span className="text-foreground/40 text-xs uppercase tracking-wide block mb-1">Phone</span>
                     <button
                       onClick={() => handleCopyPhone(showroom.phone)}
-                      className="text-cream/80 text-sm hover:text-gold transition-colors"
+                      className="text-foreground/80 text-sm hover:text-gold transition-colors"
                     >
                       {showroom.phone}
                     </button>
@@ -168,8 +168,8 @@ export function Showrooms() {
                 <div className="flex items-start gap-3">
                   <Clock className="w-4 h-4 text-gold mt-1 flex-shrink-0" />
                   <div>
-                    <span className="text-cream/40 text-xs uppercase tracking-wide block mb-1">Hours</span>
-                    <p className="text-cream/80 text-sm">{showroom.hours}</p>
+                    <span className="text-foreground/40 text-xs uppercase tracking-wide block mb-1">Hours</span>
+                    <p className="text-foreground/80 text-sm">{showroom.hours}</p>
                   </div>
                 </div>
               </div>
@@ -178,7 +178,7 @@ export function Showrooms() {
                 href={showroom.mapUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 flex items-center justify-center gap-2 w-full py-3 border border-cream/20 rounded-full text-cream/80 hover:text-gold hover:border-gold transition-colors text-sm"
+                className="mt-6 flex items-center justify-center gap-2 w-full py-3 border border-cream/20 rounded-full text-foreground/80 hover:text-gold hover:border-gold transition-colors text-sm"
               >
                 <ExternalLink className="w-4 h-4" />
                 View on Map
@@ -209,7 +209,7 @@ export function Showrooms() {
       {/* Contact Section */}
       <div ref={contactRef} className="px-4 sm:px-6 lg:px-[6vw]">
         <div className="bg-white/5 rounded-[10px] p-6 lg:p-10">
-          <h2 className="font-serif text-2xl lg:text-3xl text-cream mb-8">Contact Us</h2>
+          <h2 className="font-serif text-2xl lg:text-3xl text-foreground mb-8">Contact Us</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Call Us */}
@@ -218,11 +218,11 @@ export function Showrooms() {
                 <div className="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center">
                   <Phone className="w-4 h-4 text-gold" />
                 </div>
-                <h3 className="font-serif text-lg text-cream">Call Us</h3>
+                <h3 className="font-serif text-lg text-foreground">Call Us</h3>
               </div>
               <button
                 onClick={() => handleCopyPhone('09744271611')}
-                className="text-cream/80 hover:text-gold transition-colors font-mono text-lg"
+                className="text-foreground/80 hover:text-gold transition-colors font-mono text-lg"
               >
                 09744271611
               </button>
@@ -234,18 +234,18 @@ export function Showrooms() {
                 <div className="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center">
                   <Mail className="w-4 h-4 text-gold" />
                 </div>
-                <h3 className="font-serif text-lg text-cream">Email Us</h3>
+                <h3 className="font-serif text-lg text-foreground">Email Us</h3>
               </div>
               <div className="space-y-2">
                 <a
                   href="mailto:info@dtraders.com"
-                  className="block text-cream/80 hover:text-gold transition-colors text-sm"
+                  className="block text-foreground/80 hover:text-gold transition-colors text-sm"
                 >
                   info@dtraders.com
                 </a>
                 <a
                   href="mailto:sales@dtraders.com"
-                  className="block text-cream/80 hover:text-gold transition-colors text-sm"
+                  className="block text-foreground/80 hover:text-gold transition-colors text-sm"
                 >
                   sales@dtraders.com
                 </a>
@@ -258,11 +258,11 @@ export function Showrooms() {
                 <div className="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center">
                   <ExternalLink className="w-4 h-4 text-gold" />
                 </div>
-                <h3 className="font-serif text-lg text-cream">Send Us a Message</h3>
+                <h3 className="font-serif text-lg text-foreground">Send Us a Message</h3>
               </div>
               <Link
                 to="/#contact"
-                className="inline-flex items-center gap-2 text-cream/80 hover:text-gold transition-colors text-sm"
+                className="inline-flex items-center gap-2 text-foreground/80 hover:text-gold transition-colors text-sm"
               >
                 Go to contact form
                 <ArrowLeft className="w-3 h-3 rotate-180" />

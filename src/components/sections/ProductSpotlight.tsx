@@ -1,8 +1,10 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRight } from 'lucide-react';
+import { ShoppingBag } from 'lucide-react';
 import type { Product } from '@/types';
+import { useCart } from '@/context/CartContext';
+import { toast } from 'sonner';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,6 +19,7 @@ export function ProductSpotlight({
 }: ProductSpotlightProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const { addToCart } = useCart();
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -45,31 +48,29 @@ export function ProductSpotlight({
     return () => ctx.revert();
   }, []);
 
-  const handleRequestQuote = () => {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    }
+  const handleAddToCart = () => {
+    addToCart({ ...product, _id: product.id, imageUrl: product.image });
+    toast.success(`${product.name} added to cart!`);
   };
 
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-20 lg:py-32 bg-dark"
+      className="relative w-full py-20 lg:py-32 bg-background"
     >
       <div className="px-6 lg:px-[6vw]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* Content */}
           <div ref={contentRef}>
-            <span className="font-mono text-xs uppercase tracking-[0.12em] text-cream/70 mb-4 block">
+            <span className="font-mono text-xs uppercase tracking-[0.12em] text-foreground/70 mb-4 block">
               Spotlight
             </span>
 
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-section text-cream mb-6">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-section text-foreground mb-6">
               {product.name}
             </h2>
 
-            <p className="text-base lg:text-lg text-cream/80 mb-6 leading-relaxed">
+            <p className="text-base lg:text-lg text-foreground/80 mb-6 leading-relaxed">
               {product.description}
             </p>
 
@@ -78,11 +79,11 @@ export function ProductSpotlight({
             </p>
 
             <button
-              onClick={handleRequestQuote}
+              onClick={handleAddToCart}
               className="btn-primary flex items-center gap-2 group"
             >
-              Request Quote
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <ShoppingBag className="w-4 h-4" />
+              Add to Cart
             </button>
           </div>
 
