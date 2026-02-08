@@ -1,0 +1,10 @@
+export { Hero } from './Hero';
+export { Featured } from './Featured';
+export { Categories } from './Categories';
+export { Philosophy } from './Philosophy';
+export { ProductSpotlight } from './ProductSpotlight';
+export { Craft } from './Craft';
+export { Mattress } from './Mattress';
+export { Showroom } from './Showroom';
+export { Delivery } from './Delivery';
+export { Contact } from './Contact';
