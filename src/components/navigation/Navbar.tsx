@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Search, User, MapPin } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const navLinks = [
   { label: 'Featured', href: '/#featured' },
@@ -103,16 +103,6 @@ export function Navbar() {
               >
                 {isMobileMenuOpen ? <X className="w-5 h-5 stroke-[1.5]" /> : <Menu className="w-5 h-5 stroke-[1.5]" />}
               </button>
-
-              <button className="text-primary hover:text-accent transition-colors hidden sm:block">
-                <Search className="w-5 h-5 stroke-[1.5]" />
-              </button>
-              
-              {/* Added /admin link to User icon */}
-              <Link to="/admin" className="text-primary hover:text-accent transition-colors hidden sm:block">
-                <User className="w-5 h-5 stroke-[1.5]" />
-              </Link>
-
             </div>
           </div>
         </nav>

@@ -1,16 +1,13 @@
 import { useState, useMemo } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { Filter, X, ShoppingBag } from 'lucide-react';
+import { Filter, X } from 'lucide-react';
 import { categories } from '@/data/products';
-import { toast } from 'sonner';
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
-import { useCart } from '@/context/CartContext';
 import { motion } from 'framer-motion';
 
 export function Products() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { addToCart } = useCart();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(
     searchParams.get('category')
   );
@@ -46,10 +43,10 @@ export function Products() {
     }
   };
 
-  const handleAddToCart = (product: any, e: React.MouseEvent) => {
+  const handleWhatsAppBuy = (product: any, e: React.MouseEvent) => {
     e.preventDefault();
-    addToCart(product);
-    toast.success(`${product.name} added to cart!`);
+    const message = `Hello, I would like to buy: ${product.name} (Price: ₹${product.price.toLocaleString()}). Could you provide more details?`;
+    window.open(`https://wa.me/918086674502?text=${encodeURIComponent(message)}`, '_blank');
   };
 
   return (
@@ -200,10 +197,10 @@ export function Products() {
                       
                       {/* Quick Add Button overlay */}
                       <button 
-                        onClick={(e) => handleAddToCart(product, e)}
-                        className="absolute bottom-0 left-0 w-full bg-white text-primary py-4 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 flex justify-center items-center gap-2 uppercase tracking-widest text-small font-medium hover:bg-primary hover:text-white"
+                        onClick={(e) => handleWhatsAppBuy(product, e)}
+                        className="absolute bottom-0 left-0 w-full bg-[#25D366] text-white py-4 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 flex justify-center items-center gap-2 uppercase tracking-widest text-small font-medium hover:bg-[#128C7E]"
                       >
-                        <ShoppingBag className="w-4 h-4 stroke-[1.5]" /> Add to Bag
+                        Buy via WhatsApp
                       </button>
                     </div>
                     <div className="px-2">
