@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ShoppingBag, Truck, ShieldCheck, RefreshCw } from 'lucide-react';
+import { ArrowLeft, Truck, ShieldCheck, RefreshCw } from 'lucide-react';
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import type { Id } from '../../convex/_generated/dataModel';
