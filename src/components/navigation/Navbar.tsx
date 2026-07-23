@@ -1,16 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, ShoppingBag } from 'lucide-react';
+import { Menu, X, ShoppingBag, Search, User, MapPin } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { CartSheet } from './CartSheet';
 
-const navItems = [
+const navLinks = [
   { label: 'Featured', href: '/#featured' },
   { label: 'Shop', href: '/products' },
-];
-
-const rightNavItems = [
-  { label: 'Contact', href: '/#contact' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 export function Navbar() {
@@ -23,14 +20,13 @@ export function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 40); // 40px is approx the height of the top bar
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [location.pathname]);
@@ -62,124 +58,113 @@ export function Navbar() {
 
   return (
     <>
-      <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-          ? 'bg-background/95 backdrop-blur-md py-3'
-          : 'bg-transparent py-4 lg:py-6'
-          }`}
-      >
-        <div className="w-full px-4 sm:px-6 lg:px-12 flex items-center justify-between">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 group">
-            <span className="font-serif text-xl sm:text-2xl lg:text-3xl text-foreground font-semibold tracking-tight group-hover:text-gold transition-colors">
-              Dtraders
-            </span>
-          </Link>
-
-          {/* Desktop Navigation - Center */}
-          <div className="hidden lg:flex items-center gap-8 xl:gap-10">
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={(e) => handleNavClick(e, item.href)}
-                className="text-sm text-foreground/80 hover:text-gold transition-colors duration-300 tracking-wide"
-              >
-                {item.label}
-              </a>
-            ))}
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? '-translate-y-[40px]' : 'translate-y-0'}`}>
+        
+        {/* Top Announcement Bar */}
+        <div className="bg-primary text-white h-[40px] px-6 lg:px-12 flex items-center justify-between text-xs tracking-wide">
+          <div className="hidden sm:block opacity-0">Spacer</div> {/* for centering */}
+          <div className="flex-1 text-center text-white/80">
+            Premium Furniture & Mattresses &nbsp;&bull;&nbsp; Designed for Modern Living &nbsp;&bull;&nbsp; Delivered Across India
           </div>
+          <div className="flex items-center gap-2 text-white/80 hidden sm:flex">
+            <MapPin className="w-3.5 h-3.5" />
+            Kerala, India
+          </div>
+        </div>
 
-          {/* Desktop Navigation - Right */}
-          <div className="hidden lg:flex items-center gap-6 xl:gap-8">
-            <Link
-              to="/showrooms"
-              className="text-sm text-foreground/80 hover:text-gold transition-colors duration-300 tracking-wide"
-            >
-              Showrooms
+        {/* Main Navigation */}
+        <nav className={`bg-offwhite border-b border-gray-200/50 transition-all duration-300 ${isScrolled ? 'shadow-sm py-4' : 'py-6'}`}>
+          <div className="px-6 lg:px-12 w-full flex items-center justify-between">
+            
+            {/* Logo */}
+            <Link to="/" className="flex items-center gap-2 group z-50">
+              <span className="font-serif text-2xl tracking-widest text-primary flex items-center">
+                <span className="text-accent text-3xl font-medium mr-1.5">D</span> TRADERS
+              </span>
             </Link>
-            {rightNavItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={(e) => handleNavClick(e, item.href)}
-                className="text-sm text-foreground/80 hover:text-gold transition-colors duration-300 tracking-wide"
+
+            {/* Desktop Navigation - Center */}
+            <div className="hidden lg:flex items-center gap-8 xl:gap-10 absolute left-1/2 -translate-x-1/2">
+              {navLinks.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={(e) => handleNavClick(e, item.href)}
+                  className="text-sm font-medium text-primary/80 hover:text-primary transition-colors duration-300"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+
+            {/* Desktop Navigation - Right Icons */}
+            <div className="flex items-center gap-6 z-50">
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="lg:hidden p-2 -ml-2 text-primary"
+                aria-label="Toggle menu"
               >
-                {item.label}
-              </a>
-            ))}
-            <button
-              onClick={() => setIsCartOpen(true)}
-              className="flex items-center gap-2 text-sm text-foreground/80 hover:text-gold transition-colors duration-300 relative"
-            >
-              <div className="relative">
-                <ShoppingBag className="w-5 h-5" />
-                {totalItems > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-gold text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                {isMobileMenuOpen ? <X className="w-5 h-5 stroke-[1.5]" /> : <Menu className="w-5 h-5 stroke-[1.5]" />}
+              </button>
+
+              <button className="text-primary hover:text-accent transition-colors hidden sm:block">
+                <Search className="w-5 h-5 stroke-[1.5]" />
+              </button>
+              
+              {/* Added /admin link to User icon */}
+              <Link to="/admin" className="text-primary hover:text-accent transition-colors hidden sm:block">
+                <User className="w-5 h-5 stroke-[1.5]" />
+              </Link>
+
+              <button
+                onClick={() => setIsCartOpen(true)}
+                className="text-primary hover:text-accent transition-colors relative flex items-center gap-2"
+              >
+                <div className="relative">
+                  <ShoppingBag className="w-5 h-5 stroke-[1.5]" />
+                  <span className="absolute -top-1 -right-1 bg-primary text-white text-[9px] font-medium w-4 h-4 rounded-full flex items-center justify-center">
                     {totalItems}
                   </span>
-                )}
-              </div>
-              <span className="hidden xl:inline">Cart</span>
-            </button>
-            <Link
-              to="/products"
-              className="btn-primary py-2 px-6"
-            >
-              Shop Now
-            </Link>
+                </div>
+              </button>
+            </div>
           </div>
+        </nav>
+      </header>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden text-foreground p-2 -mr-2"
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? (
-              <X className="w-5 h-5" />
-            ) : (
-              <Menu className="w-5 h-5" />
-            )}
-          </button>
-        </div>
-      </nav>
+      {/* spacer to prevent content from hiding behind fixed header */}
+      <div className="h-[100px]" />
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-background/98 backdrop-blur-lg transition-all duration-300 lg:hidden ${isMobileMenuOpen
-          ? 'opacity-100 pointer-events-auto'
-          : 'opacity-0 pointer-events-none'
-          }`}
+        className={`fixed inset-0 z-40 bg-offwhite transition-all duration-300 lg:hidden ${
+          isMobileMenuOpen
+            ? 'opacity-100 pointer-events-auto'
+            : 'opacity-0 pointer-events-none'
+        }`}
       >
-        <div className="flex flex-col items-center justify-center h-full gap-6 pt-20">
-          {[...navItems, ...rightNavItems].map((item) => (
+        <div className="flex flex-col h-full pt-32 px-8 overflow-y-auto pb-12">
+          {navLinks.map((item) => (
             <a
               key={item.label}
               href={item.href}
               onClick={(e) => handleNavClick(e, item.href)}
-              className="text-xl font-serif text-foreground hover:text-gold transition-colors duration-300"
+              className="text-2xl font-serif text-primary hover:text-accent transition-colors duration-300 py-4 border-b border-gray-200"
             >
               {item.label}
             </a>
           ))}
           <Link
-            to="/showrooms"
+            to="/admin"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="text-xl font-serif text-foreground hover:text-gold transition-colors duration-300"
+            className="text-2xl font-serif text-primary hover:text-accent transition-colors duration-300 py-4 border-b border-gray-200 flex items-center gap-3"
           >
-            Showrooms
-          </Link>
-          <Link
-            to="/products"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="text-xl font-serif text-foreground hover:text-gold transition-colors duration-300 flex items-center gap-3 mt-4"
-          >
-            <ShoppingBag className="w-5 h-5" />
-            Shop
+            Admin Dashboard
           </Link>
         </div>
       </div>
+
       <CartSheet
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
