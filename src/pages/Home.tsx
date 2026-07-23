@@ -1,19 +1,11 @@
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ArrowLeft, Gem, Armchair, Cloud, Truck, CreditCard, ShieldCheck, RefreshCw, HeadphonesIcon, Mail, Phone, MapPin } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Gem, Armchair, Cloud, Truck, Mail, Phone, MapPin } from 'lucide-react';
 
 const topTrustItems = [
   { icon: Gem, title: 'Premium Quality', desc: 'Finest materials & exceptional craftsmanship' },
   { icon: Armchair, title: 'Timeless Design', desc: 'Elegant pieces that never go out of style' },
   { icon: Cloud, title: 'Made for Comfort', desc: 'Thoughtful ergonomics for everyday living' },
   { icon: Truck, title: 'Delivered Across India', desc: 'Safe, reliable & on-time delivery' },
-];
-
-const bottomTrustItems = [
-  { icon: CreditCard, title: '0% EMI Options', desc: 'Easy financing on leading banks' },
-  { icon: ShieldCheck, title: 'Secure Payments', desc: '100% safe & encrypted transactions' },
-  { icon: RefreshCw, title: 'Easy Returns', desc: 'Hassle-free returns within 7 days' },
-  { icon: HeadphonesIcon, title: 'Dedicated Support', desc: "We're here to help you before & after purchase" },
 ];
 
 const categories = [

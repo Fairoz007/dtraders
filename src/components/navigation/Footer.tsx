@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Instagram, Facebook, Twitter, Youtube } from 'lucide-react';
+import { Instagram, Facebook, Twitter, Youtube } from 'lucide-react';
 
 export function Footer() {
   return (
