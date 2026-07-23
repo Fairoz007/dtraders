@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, ShoppingBag, Search, User, MapPin } from 'lucide-react';
-import { useCart } from '@/context/CartContext';
-import { CartSheet } from './CartSheet';
+import { Menu, X, Search, User, MapPin } from 'lucide-react';
 
 const navLinks = [
   { label: 'Featured', href: '/#featured' },
@@ -15,8 +13,6 @@ export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const { totalItems } = useCart();
-  const [isCartOpen, setIsCartOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -117,17 +113,6 @@ export function Navbar() {
                 <User className="w-5 h-5 stroke-[1.5]" />
               </Link>
 
-              <button
-                onClick={() => setIsCartOpen(true)}
-                className="text-primary hover:text-accent transition-colors relative flex items-center gap-2"
-              >
-                <div className="relative">
-                  <ShoppingBag className="w-5 h-5 stroke-[1.5]" />
-                  <span className="absolute -top-1 -right-1 bg-primary text-white text-[9px] font-medium w-4 h-4 rounded-full flex items-center justify-center">
-                    {totalItems}
-                  </span>
-                </div>
-              </button>
             </div>
           </div>
         </nav>
@@ -165,10 +150,6 @@ export function Navbar() {
         </div>
       </div>
 
-      <CartSheet
-        isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
-      />
     </>
   );
 }

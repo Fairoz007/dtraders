@@ -3,13 +3,9 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, ShoppingBag, Truck, ShieldCheck, RefreshCw } from 'lucide-react';
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
-import { useCart } from '@/context/CartContext';
-import { toast } from 'sonner';
 import type { Id } from '../../convex/_generated/dataModel';
-
 export function ProductDetails() {
   const { id } = useParams<{ id: string }>();
-  const { addToCart } = useCart();
   
   // Need to cast the ID to match Convex's generated Id type
   const product = useQuery(api.products.get, { 
@@ -37,11 +33,9 @@ export function ProductDetails() {
     );
   }
 
-  const handleAddToCart = () => {
-    addToCart(product);
-    toast.success(`${product.name} added to cart!`, {
-      style: { background: '#222222', color: '#fff', border: 'none' }
-    });
+  const handleWhatsAppBuy = () => {
+    const message = `Hello, I would like to buy: ${product.name} (Price: ₹${product.price.toLocaleString()}). Could you provide more details?`;
+    window.open(`https://wa.me/918086674502?text=${encodeURIComponent(message)}`, '_blank');
   };
 
   return (
@@ -102,10 +96,10 @@ export function ProductDetails() {
 
               <div className="mb-16">
                 <button 
-                  onClick={handleAddToCart}
-                  className="w-full btn-primary flex justify-center items-center gap-3 py-5 text-base"
+                  onClick={handleWhatsAppBuy}
+                  className="w-full btn-primary flex justify-center items-center gap-3 py-5 text-base bg-[#25D366] hover:bg-[#128C7E] text-white"
                 >
-                  <ShoppingBag className="w-5 h-5" /> Add to Bag
+                  Buy via WhatsApp
                 </button>
               </div>
 
